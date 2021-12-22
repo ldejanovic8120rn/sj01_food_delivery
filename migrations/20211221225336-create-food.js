@@ -28,6 +28,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      restaurant_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
@@ -39,6 +43,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Food');
+    await queryInterface.dropTable('Foods');
   }
 };

@@ -3,45 +3,47 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Restaurants extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate( {Foods, Comments} ) {
+      this.hasMany(Foods, { foreignKey: 'restaurant_id', as: 'foods', onDelete: 'cascade', hooks: true });
+      this.hasMany(Comments, { foreignKey: 'restaurant_id', as: 'comments', onDelete: 'cascade', hooks: true });
     }
   };
-  User.init({
-    role: {
-      type: DataTypes.STRING,
-    },
-    first_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    last_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    username: {
+  Restaurants.init({
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    email: {
+    kitchen: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    street: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    phone: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    password: {
-      type: DataTypes.STRING,
+    delivery_price: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Restaurants',
   });
-  return User;
+  return Restaurants;
 };

@@ -24,6 +24,14 @@ module.exports = {
         type: DataTypes.DATE,
         allowNull: false
       },
+      restaurant_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
