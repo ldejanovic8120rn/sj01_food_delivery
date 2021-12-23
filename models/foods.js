@@ -33,10 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     portion: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    restaurant_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
     }
   }, {
     sequelize,
