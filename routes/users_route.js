@@ -16,7 +16,7 @@ route.get('/users', (req, res) => {
 //Get user by id
 route.get('/users/:id', (req, res) => {
     Users.findOne({ where: { id: req.params.id } })
-        .then(rows => res.json(rows))
+        .then(row => res.json(row))
         .catch(err => res.status(500).json(err));
 });
 
@@ -50,7 +50,6 @@ route.put('/users/:id', (req, res) => {
                 .catch(err => res.status(500).json(err));
         })
         .catch(err => res.status(500).json(err))
-
 });
 
 //Delete user

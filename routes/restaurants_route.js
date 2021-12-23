@@ -16,7 +16,7 @@ route.get('/restaurants', (req, res) => {
 //Get restaurant by id
 route.get('/restaurants/:id', (req, res) => {
     Restaurants.findOne({ where: { id: req.params.id } })
-        .then(rows => res.json(rows))
+        .then(row => res.json(row))
         .catch(err => res.status(500).json(err));
 })
 
@@ -32,7 +32,6 @@ route.post('/restaurants', (req, res) => {
     })
         .then(row => res.json(row))
         .catch(err => res.status(500).json(err));
-
 })
 
 //Update restaurant
