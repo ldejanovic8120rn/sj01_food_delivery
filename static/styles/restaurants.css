@@ -1,0 +1,119 @@
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif;
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.main{
+	width: 1200px;
+	height: 900px;
+	background: rgb(250, 250, 250);
+	overflow: hidden;
+    padding-left: 30px;
+    padding-right: 30px;
+	padding-top: 20px;
+
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+}
+label{
+	color: #fff;
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 60px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+input{
+	width: 45%;
+	height: 20px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+button{
+	width: 20%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	/*background: #573b8a;*/
+    background: #2e7a54;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+.update-button {
+    width: 90%;
+	height: 30px;
+    justify-content: center;
+    background: #302b63;
+    color: #fff;
+}
+.delete-button {
+    width: 90%;
+	height: 30px;
+    justify-content: center;
+    background: rgb(150, 41, 41);
+    color: #fff;
+}
+.update-button:hover {
+    background: #443e8a;
+}
+.delete-button:hover {
+    background: rgb(184, 20, 42);
+}
+button:hover{
+	/*background: #6d44b8;*/
+    background: #3d9167;
+}
+.table-div{
+    padding-top: 50px;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    height: 270px;
+    width: 100%;
+    overflow: scroll;
+    display: block;
+}
+td, th {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+}
+tr td button {
+    min-width: 100px;
+}
+tr:nth-child(odd) {
+    background-color: #dddddd;
+}
+thead th {
+    background-color: white;
+}
+.create {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    margin: auto;
+    width: 50%;
+}
