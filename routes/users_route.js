@@ -8,7 +8,7 @@ route.use(express.urlencoded({ extended: true }));
 
 //Get all users
 route.get('/users', (req, res) => {
-    User.findAll()
+    Users.findAll()
         .then(rows => res.json(rows))
         .catch(err => res.status(500).json(err));
 });

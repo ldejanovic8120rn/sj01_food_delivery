@@ -28,7 +28,7 @@ route.post('/restaurants', (req, res) => {
         city: req.body.kitchen,
         street: req.body.street,
         phone: req.body.phone,
-        delivery_price = req.body.delivery_price
+        delivery_price: req.body.delivery_price
     })
         .then(row => res.json(row))
         .catch(err => res.status(500).json(err));

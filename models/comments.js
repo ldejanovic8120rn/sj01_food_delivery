@@ -30,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
     posted: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    restaurant_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,

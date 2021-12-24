@@ -20,4 +20,5 @@ app.use(express.json());
 
 app.listen({ port: 8081 }, async () => {
     await sequelize.authenticate();
+    console.log('Crud server started!')
 });

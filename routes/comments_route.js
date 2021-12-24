@@ -27,8 +27,8 @@ route.post('/comments', (req, res) => {
         restaurant_id: req.body.restaurant_id,
         rate: req.body.rate,
         content: req.body.content,
-        likes: req.body.likes,
-        created: new Date()
+        likes: 0,
+        posted: new Date()
     })
         .then(row => res.json(row))
         .catch(err => res.status(500).json(err));
