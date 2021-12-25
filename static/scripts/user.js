@@ -2,7 +2,7 @@ window.addEventListener('load', init);
 
 function init() {
     getUsers();
-    document.getElementById('create-button').addEventListener('click', addUser);
+    document.getElementById('user-create-button').addEventListener('click', addUser);
 }
 
 function getUsers() {

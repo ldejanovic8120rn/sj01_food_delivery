@@ -2,7 +2,7 @@ window.addEventListener('load', init);
 
 function init() {
     getRestaurants();
-    document.getElementById('create-button').addEventListener('click', addRestaurant());
+    document.getElementById('restaurant-create-button').addEventListener('click', addRestaurant);
 }
 
 function getRestaurants() {
@@ -73,7 +73,21 @@ function updateRestaurant(restaurantId) {
 }
 
 function deleteRestaurant(restaurantId) {
-
+    fetch(`http://localhost:8081/admin/users/${restaurantId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(res => {
+            if (res.json().message) {
+                alert(res.json().message);
+            }
+            else {
+                let trDelete = document.getElementById(`table-row-${restaurantId}`);
+                trDelete.parentNode.removeChild(trDelete);
+            }
+        });
 }
 
 function clearInput() {
