@@ -58,8 +58,8 @@ function addRestaurant() {
                                 <td>${resRestaurant.street}</td>
                                 <td>${resRestaurant.phone}</td>
                                 <td>${resRestaurant.delivery_price}</td>
-                                <td> <button type="button" class="update-button" onclick="updateUser(${resRestaurant.id})">update</button> </td>
-                                <td> <button type="button" class="delete-button" onclick="deleteUser(${resRestaurant.id})">delete</button> </td>
+                                <td> <button type="button" class="update-button" onclick="updateRestaurant(${resRestaurant.id})">update</button> </td>
+                                <td> <button type="button" class="delete-button" onclick="deleteRestaurant(${resRestaurant.id})">delete</button> </td>
                             </tr>`;
 
                     document.querySelector('#table-body').innerHTML = document.querySelector('#table-body').innerHTML + newRow;
@@ -73,7 +73,7 @@ function updateRestaurant(restaurantId) {
 }
 
 function deleteRestaurant(restaurantId) {
-    fetch(`http://localhost:8081/admin/users/${restaurantId}`, {
+    fetch(`http://localhost:8081/admin/restaurants/${restaurantId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
