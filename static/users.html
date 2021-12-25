@@ -4,9 +4,7 @@
     <head>
         <title>Users</title>
         <link rel="stylesheet" type="text/css" href="styles/users.css">
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-
-        
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">   
     </head>
 
     <body>
@@ -14,12 +12,34 @@
 
             <div class="create">
                 <form class="form">
-                    <input type="text" id="" name="first_name" placeholder="First name" required="">
-                    <input type="text" id="" name="last_name" placeholder="Last name" required="">
-                    <input type="text" id="" name="username" placeholder="Username" required="">
-                    <input type="email" id="" name="email" placeholder="Email" required="">
-                    <input type="password" id="" name="password" placeholder="Password" required="">
+
+                    <div class="form-div">
+                        <label for="first-name">First name:</label>
+                        <input type="text" id="first-name" name="first-name" placeholder="First name" required="">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="last-name">Last name:</label>
+                        <input type="text" id="last-name" name="last-name" placeholder="Last name" required="">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" placeholder="Username" required="">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required="">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Password" required="">
+                    </div>
+
                     <button type="button" id="create-button">Create user</button>
+
                 </form>
             </div>
 
@@ -36,85 +56,7 @@
                             <th width="100px"></th>
                         </tr>
                     </thead>
-                    <tbody style="overflow: scroll;">
-                        <tr>
-                            <td>ADMIN</td>
-                            <td>Lazar</td>
-                            <td>Dejanovic</td>
-                            <td>laki</td>
-                            <td>lazar@gmail.com</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ADMIN</td>
-                            <td>Lazar</td>
-                            <td>Dejanovic</td>
-                            <td>laki</td>
-                            <td>lazar@gmail.com</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ADMIN</td>
-                            <td>Lazar</td>
-                            <td>Dejanovic</td>
-                            <td>laki</td>
-                            <td>lazar@gmail.com</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ADMIN</td>
-                            <td>Lazar</td>
-                            <td>Dejanovic</td>
-                            <td>laki</td>
-                            <td>lazar@gmail.com</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ADMIN</td>
-                            <td>Lazar</td>
-                            <td>Dejanovic</td>
-                            <td>laki</td>
-                            <td>lazar@gmail.com</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ADMIN</td>
-                            <td>Lazar</td>
-                            <td>Dejanovic</td>
-                            <td>laki</td>
-                            <td>lazar@gmail.com</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
+                    <tbody>
                         <tr>
                             <td>ADMIN</td>
                             <td>Lazar</td>
@@ -131,8 +73,9 @@
                     </tbody>
                 </table>
             </div>
+        </div>
 
-        <script src="scripts/index.js"></script>
+        <script src="scripts/user.js"></script>
     </body>
 
 </html>
