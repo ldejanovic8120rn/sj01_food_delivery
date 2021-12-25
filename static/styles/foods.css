@@ -16,7 +16,6 @@ body{
     padding-left: 30px;
     padding-right: 30px;
 	padding-top: 20px;
-
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
 }
@@ -27,19 +26,28 @@ body{
     padding: 10px;
 }
 label{
+    font-family: 'Jost', sans-serif;
     font-size: large;
 	color: #fff;
     width: 70px;
 	font-weight: bold;
     padding-right: 50px;
     display: inline-block;
-    
 }
 input{
+    font-family: 'Jost', sans-serif;
 	width: 30%;
 	height: 40px;
 	background: #e0dede;
-	
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+select{
+    font-family: 'Jost', sans-serif;
+	width: 30%;
+	height: 40px;
+	background: #e0dede;
 	border: none;
 	outline: none;
 	border-radius: 5px;

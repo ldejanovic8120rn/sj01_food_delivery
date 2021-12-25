@@ -5,8 +5,6 @@
         <title>Foods</title>
         <link rel="stylesheet" type="text/css" href="styles/foods.css">
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-
-
     </head>
 
     <body>
@@ -27,7 +25,11 @@
 
                     <div class="form-div">
                         <label for="restaurant">Restaurant:</label>
-                        <input type="text" id="restaurant" name="restaurant" placeholder="Restaurant" required="">
+                        <select id="restaurant" name="restaurant">
+                            <option value="iva-top">Iva Top</option>
+                            <option value="kamionzdije">Kamiondzije</option>
+                            <option value="meda">Meda</option>
+                        </select>
                     </div>
 
                     <div class="form-div">
@@ -37,12 +39,24 @@
 
                     <div class="form-div">
                         <label for="category">Category:</label>
-                        <input type="text" id="category" name="category" placeholder="Category" required="">
+                        <select id="category" name="category">
+                            <option value="appetizer">Appetizer</option>
+                            <option value="soup">Soup</option>
+                            <option value="main-course">Main course</option>
+                            <option value="salad">Salad</option>
+                            <option value="side-dish">Side dish</option>
+                            <option value="sauce">Sauce</option>
+                            <option value="desert">Desert</option>
+                        </select>
                     </div>
                     
                     <div class="form-div">
                         <label for="portion">Portion:</label>
-                        <input type="text" id="portion" name="portion" placeholder="Portion" required="">
+                        <select id="portion" name="portion">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="big">Big</option>
+                        </select>
                     </div>
 
                     <button type="button" id="create-button">Create food</button>
@@ -70,7 +84,7 @@
                             <td>Serbian</td>
                             <td>Svrljig</td>
                             <td>Negde u svrljigu</td>
-                            <td>111222</td>
+                            <td>Main course</td>
                             <td>700</td>
                             <td>
                                 <button type="button" class="update-button">update</button>
