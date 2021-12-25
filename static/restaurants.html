@@ -14,33 +14,33 @@
             <form class="form">
 
                 <div class="form-div">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Name" required="">
+                    <label for="restaurant-name">Name:</label>
+                    <input type="text" id="restaurant-name" name="restaurant-name" placeholder="Name" required="">
                 </div>
 
                 <div class="form-div">
-                    <label for="kitchen">Kitchen:</label>
-                    <input type="text" id="kitchen" name="kitchen" placeholder="Kitchen" required="">
+                    <label for="restaurant-kitchen">Kitchen:</label>
+                    <input type="text" id="restaurant-kitchen" name="restaurant-kitchen" placeholder="Kitchen" required="">
                 </div>
 
                 <div class="form-div">
-                    <label for="city">City:</label>
-                    <input type="text" id="city" name="city" placeholder="City" required="">
+                    <label for="restaurant-city">City:</label>
+                    <input type="text" id="restaurant-city" name="restaurant-city" placeholder="City" required="">
                 </div>
 
                 <div class="form-div">
-                    <label for="street">Street:</label>
-                    <input type="text" id="street" name="street" placeholder="Street" required="">
+                    <label for="restaurant-street">Street:</label>
+                    <input type="text" id="restaurant-street" name="restaurant-street" placeholder="Street" required="">
                 </div>
                 
                 <div class="form-div">
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Phone" required="">
+                    <label for="restaurant-phone">Phone:</label>
+                    <input type="tel" id="restaurant-phone" name="restaurant-phone" placeholder="Phone" required="">
                 </div>
 
                 <div class="form-div">
-                    <label for="delivery-price">Delivery price:</label>
-                    <input type="number" id="delivery-price" name="delivery-price" placeholder="Delivery price" required="">
+                    <label for="restaurant-delivery-price">Delivery price:</label>
+                    <input type="number" id="restaurant-delivery-price" name="restaurant-delivery-price" placeholder="Delivery price" required="">
                 </div>
 
                 <button type="button" id="create-button">Create restaurant</button>
@@ -62,22 +62,7 @@
                         <th width="100px"></th>
                     </tr>
                 </thead>
-                <tbody">
-                    <tr>
-                        <td>Kamiondzije</td>
-                        <td>Serbian</td>
-                        <td>Svrljig</td>
-                        <td>Negde u svrljigu</td>
-                        <td>111222</td>
-                        <td>700</td>
-                        <td>
-                            <button type="button" class="update-button">update</button>
-                        </td>
-                        <td>
-                            <button type="button" class="delete-button">delete</button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="table-body"></tbody>
             </table>
         </div>
     </div>
