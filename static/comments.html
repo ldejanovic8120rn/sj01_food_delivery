@@ -14,25 +14,21 @@
                 <form class="form">
 
                     <div class="form-div">
-                        <label for="restaurant">Restaurant:</label>
-                        <select id="restaurant" name="restaurant">
-                            <option value="iva-top">Iva Top</option>
-                            <option value="kamionzdije">Kamiondzije</option>
-                            <option value="meda">Meda</option>
-                        </select>
+                        <label for="comment-restaurant">Restaurant:</label>
+                        <select id="comment-restaurant" name="comment-restaurant"></select>
                     </div>
 
                     <div class="form-div">
-                        <label for="rate">Rate:</label>
-                        <input type="number" min="1" max="10" id="rate" name="rate" placeholder="Rate 1-10" required="">
+                        <label for="comment-rate">Rate:</label>
+                        <input type="number" min="1" max="10" id="comment-rate" name="comment-rate" placeholder="Rate 1-10" required="">
                     </div>
 
                     <div class="form-div">
-                        <label for="comment">Comment:</label>
-                        <textarea id="comment" name="comment" placeholder="Comment" required=""></textarea>
+                        <label for="comment-content">Comment:</label>
+                        <textarea id="comment-content" name="comment-content" placeholder="Comment" required=""></textarea>
                     </div>
 
-                    <button type="button" id="create-button">Create food</button>
+                    <button type="button" id="comment-create-button">Create food</button>
 
                 </form>
             </div>
@@ -51,22 +47,7 @@
                             <th width="100px"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Kamiondzije</td>
-                            <td>lakisa</td>
-                            <td>10</td>
-                            <td>Najbolja punjena vesalica!</td>
-                            <td>50</td>
-                            <td>26/06/2021</td>
-                            <td>
-                                <button type="button" class="update-button">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="delete-button">delete</button>
-                            </td>
-                        </tr>
-                        </tbody>
+                    <tbody id="table-body"></tbody>
                 </table>
             </div>
         </div>
