@@ -61,30 +61,20 @@ function addFood() {
                     alert(resFood.message);
                 }
                 else {
-                    fetch(`http://localhost:8081/admin/restaurants/${resFood.restaurant_id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                        .then(res1 => res1.json())
-                            .then(resRestaurant => {
-                                let newRow =
-                                    `<tr id="table-row-${resFood.id}">
-                                        <td>${resFood.name}</td>
-                                        <td>${resFood.price}</td>
-                                        <td>${resRestaurant.name}</td>
-                                        <td>${resFood.description}</td>
-                                        <td>${resFood.category}</td>
-                                        <td>${resFood.portion}</td>
-                                        <td> <button type="button" class="update-button" onclick="updateFood(${resFood.id})">update</button> </td>
-                                        <td> <button type="button" class="delete-button" onclick="deleteFood(${resFood.id})">delete</button> </td>
-                                    </tr>`;
+                    let newRow =
+                        `<tr id="table-row-${resFood.id}">
+                            <td>${resFood.name}</td>
+                            <td>${resFood.price}</td>
+                            <td>${resFood.restaurant.name}</td>
+                            <td>${resFood.description}</td>
+                            <td>${resFood.category}</td>
+                            <td>${resFood.portion}</td>
+                            <td> <button type="button" class="update-button" onclick="updateFood(${resFood.id})">update</button> </td>
+                            <td> <button type="button" class="delete-button" onclick="deleteFood(${resFood.id})">delete</button> </td>
+                        </tr>`;
 
-                                document.querySelector('#table-body').innerHTML = document.querySelector('#table-body').innerHTML + newRow;
-                                clearInput();
-
-                            })
+                    document.querySelector('#table-body').innerHTML = document.querySelector('#table-body').innerHTML + newRow;
+                    clearInput();
                 }
             });
 }

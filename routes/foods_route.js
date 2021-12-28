@@ -30,7 +30,11 @@ route.post('/foods', (req, res) => {
         category: req.body.category,
         portion: req.body.portion
     })
-        .then(row => res.json(row))
+        .then(row => {
+            Foods.findOne({ where: { id: row.id }, include: 'restaurant' })
+                .then(food => res.json(food))
+                .catch(err => res.status(500).json(err));
+        })
         .catch(err => res.status(500).json(err));
 })
 
