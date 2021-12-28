@@ -29,7 +29,7 @@ function getComments() {
 }
 
 function addComment() {
-
+  //TODO
 }
 
 function updateComment(commentId) {
