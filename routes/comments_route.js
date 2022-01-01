@@ -30,7 +30,11 @@ route.post('/comments', (req, res) => {
         likes: 0,
         posted: new Date()
     })
-        .then(row => res.json(row))
+        .then(row => {
+            Comments.findOne({ where: { id: row.id }, include: ['user', 'restaurant'] })
+                .then(comment => res.json(comment))
+                .catch(err => res.status(500).json(err));
+        })
         .catch(err => res.status(500).json(err));
 })
 

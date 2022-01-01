@@ -11,14 +11,15 @@ function getComments() {
         .then(res => res.json())
         .then(comments => {
             comments.forEach(comment => {
+                let posted = new Date(comment.posted).toLocaleDateString('en-US');
                 let newRow =
                     `<tr id="table-row-${comment.id}">
                                     <td>${comment.restaurant.name}</td>
-                                    <td>${comment.user.name}</td>
+                                    <td>${comment.user.username}</td>
                                     <td>${comment.rate}</td>
                                     <td>${comment.content}</td>
                                     <td>${comment.likes}</td>
-                                    <td>${comment.posted}</td>
+                                    <td>${posted}</td>
                                     <td> <button type="button" class="update-button" onclick="updateComment(${comment.id})">update</button> </td>
                                     <td> <button type="button" class="delete-button" onclick="deleteComment(${comment.id})">delete</button> </td>
                                 </tr>`;
@@ -29,7 +30,46 @@ function getComments() {
 }
 
 function addComment() {
-  //TODO
+    var selectRestaurant = document.getElementById('comment-restaurant');
+    var restaurantId = selectRestaurant.options[selectRestaurant.selectedIndex].value;
+
+    var comment = {
+        user_id: 1,
+        restaurant_id: restaurantId,
+        rate: document.getElementById('comment-rate').value,
+        content: document.getElementById('comment-content').value,
+    }
+
+    fetch('http://localhost:8081/admin/comments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(comment)
+    })
+        .then(res => res.json())
+        .then(resComment => {
+            if (resComment.message) {
+                alert(resComment.message);
+            }
+            else {
+                let posted = new Date(resComment.posted).toLocaleDateString('en-US');
+                let newRow =
+                    `<tr id="table-row-${resComment.id}">
+                            <td>${resComment.restaurant.name}</td>
+                            <td>${resComment.user.username}</td>
+                            <td>${resComment.rate}</td>
+                            <td>${resComment.content}</td>
+                            <td>${resComment.likes}</td>
+                            <td>${posted}</td>
+                            <td> <button type="button" class="update-button" onclick="updateComment(${resComment.id})">update</button> </td>
+                            <td> <button type="button" class="delete-button" onclick="deleteComment(${resComment.id})">delete</button> </td>
+                        </tr>`;
+
+                document.querySelector('#table-body').innerHTML = document.querySelector('#table-body').innerHTML + newRow;
+                clearInput();
+            }
+        });
 }
 
 function updateComment(commentId) {
@@ -67,4 +107,9 @@ function initRestaurantSelect() {
                 restaurantSelect.add(option);
             });
         });
+}
+
+function clearInput() {
+    document.getElementById('comment-rate').value = '';
+    document.getElementById('comment-content').value = '';
 }
