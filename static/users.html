@@ -14,6 +14,14 @@
                 <form class="form">
 
                     <div class="form-div">
+                        <label for="role">Role:</label>
+                        <select id="role" name="role">
+                            <option value="admin">ADMIN</option>
+                            <option value="moderator">MODERATOR</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
                         <label for="first-name">First name:</label>
                         <input type="text" id="first-name" name="first-name" placeholder="First name" required="">
                     </div>
@@ -40,6 +48,50 @@
 
                     <button type="button" id="user-create-button">Create user</button>
 
+                </form>
+            </div>
+
+            <div id="update" class="update">
+                <form class="form">
+            
+                    <div class="form-div">
+                        <label for="role-update">Role:</label>
+                        <select id="role-update" name="role-update">
+                            <option value="admin">ADMIN</option>
+                            <option value="moderator">MODERATOR</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="first-name-update">First name:</label>
+                        <input type="text" id="first-name-update" name="first-name-update" placeholder="First name" required="">
+                    </div>
+            
+                    <div class="form-div">
+                        <label for="last-name-update">Last name:</label>
+                        <input type="text" id="last-name-update" name="last-name-update" placeholder="Last name" required="">
+                    </div>
+            
+                    <div class="form-div">
+                        <label for="username-update">Username:</label>
+                        <input type="text" id="username-update" name="username-update" placeholder="Username" required="">
+                    </div>
+            
+                    <div class="form-div">
+                        <label for="email-update">Email:</label>
+                        <input type="email" id="email-update" name="email-update" placeholder="Email" required="">
+                    </div>
+            
+                    <div class="form-div">
+                        <label for="password-update">Password:</label>
+                        <input type="password" id="password-update" name="password-update" placeholder="Password" required="">
+                    </div>
+                    
+                    <div class="form-div">
+                        <button type="button" id="user-update-button">Update</button>
+                        <button type="button" id="user-cancel-button">Cancel</button>
+                    </div>
+            
                 </form>
             </div>
 

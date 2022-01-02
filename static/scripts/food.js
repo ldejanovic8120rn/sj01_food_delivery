@@ -1,9 +1,11 @@
 window.addEventListener('load', init);
 
 function init() {
-    initRestaurantSelect();
+    initRestaurantSelect('food-restaurant');
+    initRestaurantSelect('food-restaurant-update');
     getFoods();
     document.getElementById('food-create-button').addEventListener('click', addFood);
+    document.getElementById("food-cancel-button").addEventListener('click', cancelUpdate);
 }
 
 function getFoods() {
@@ -80,7 +82,49 @@ function addFood() {
 }
 
 function updateFood(foodId) {
-    alert('Not implemented');
+    insertInput(foodId);
+    document.getElementById('update').style.visibility = 'visible';
+    document.getElementById('food-update-button').addEventListener('click', () => {
+        var selectRestaurant = document.getElementById('food-restaurant-update');
+        var restaurantId = selectRestaurant.options[selectRestaurant.selectedIndex].value;
+
+        var selectCategory = document.getElementById('food-category-update');
+        var textCategoty = selectCategory.options[selectCategory.selectedIndex].text;
+
+        var selectPortion = document.getElementById('food-portion-update');
+        var textPortion = selectPortion.options[selectPortion.selectedIndex].text;
+
+        var food = {
+            restaurant_id: restaurantId,
+            name: document.getElementById('food-name-update').value,
+            price: document.getElementById('food-price-update').value,
+            description: document.getElementById('food-description-update').value,
+            category: textCategoty,
+            portion: textPortion,
+        }
+
+        fetch(`http://localhost:8081/admin/foods/${foodId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(food)
+        })
+            .then(res => res.json())
+                .then(resElement => {
+                    if (resElement.message) {
+                        alert(resElement.message);
+                    }
+                    else {
+                        location.reload();
+                        document.getElementById('update').style.visibility = 'hidden';
+                    }
+                });
+    })
+}
+
+function cancelUpdate() {
+    document.getElementById('update').style.visibility = 'hidden';
 }
 
 function deleteFood(foodId) {
@@ -101,8 +145,8 @@ function deleteFood(foodId) {
         });
 }
 
-function initRestaurantSelect() {
-    var restaurantSelect = document.getElementById("food-restaurant");
+function initRestaurantSelect(elementId) {
+    var restaurantSelect = document.getElementById(elementId);
 
     fetch('http://localhost:8081/admin/restaurants', {})
         .then(res => res.json())
@@ -114,6 +158,24 @@ function initRestaurantSelect() {
                 restaurantSelect.add(option);
             });
         });
+}
+
+function insertInput(foodId) {
+    fetch(`http://localhost:8081/admin/foods/${foodId}`, {})
+        .then(res => res.json())
+            .then(food => {
+                if (food.message) {
+                    alert(food.message);
+                }
+                else {
+                    document.getElementById('food-name-update').value = food.name;
+                    document.getElementById('food-price-update').value = food.price;
+                    document.getElementById('food-restaurant-update').value = food.restaurant_id;
+                    document.getElementById('food-description-update').value = food.description;
+                    document.getElementById('food-category-update').value = food.category.replace(/\s+/g, '-').toLowerCase();
+                    document.getElementById('food-portion-update').value = food.portion.toLowerCase();
+                }
+            });
 }
 
 function clearInput() {

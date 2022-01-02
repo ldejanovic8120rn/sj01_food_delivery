@@ -36,7 +36,16 @@ label{
 }
 input{
     font-family: 'Jost', sans-serif;
-	width: 30%;
+	width: 200px;
+	height: 40px;
+	background: #e0dede;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+select{
+    font-family: 'Jost', sans-serif;
+	width: 200px;
 	height: 40px;
 	background: #e0dede;
 	border: none;
@@ -118,4 +127,34 @@ thead th {
     /*background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);*/
     margin: auto;
     width: 40%;
+}
+.update {
+    visibility: hidden;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#user-update-button {
+    width: 40%;
+	height: 30px;
+    justify-content: center;
+    color: #fff;
+}
+#user-cancel-button {
+    width: 40%;
+	height: 30px;
+    justify-content: center;
+    background: rgb(150, 41, 41);
+    color: #fff;
+}
+#user-cancel-button:hover {
+    background: rgb(184, 20, 42);
 }

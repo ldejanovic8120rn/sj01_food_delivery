@@ -42,6 +42,7 @@ route.post('/foods', (req, res) => {
 route.put('/foods/:id', (req, res) => {
     Foods.findOne({ where: { id: req.params.id }, include: 'restaurant' })
         .then(food => {
+            food.restaurant_id = req.body.restaurant_id;
             food.name = req.body.name;
             food.price = req.body.price;
             food.description = req.body.description;

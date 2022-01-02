@@ -1,9 +1,11 @@
 window.addEventListener('load', init);
 
 function init() {
-    initRestaurantSelect();
+    initRestaurantSelect('comment-restaurant');
+    initRestaurantSelect('comment-restaurant-update');
     getComments();
     document.getElementById('comment-create-button').addEventListener('click', addComment);
+    document.getElementById("comment-cancel-button").addEventListener('click', cancelUpdate);
 }
 
 function getComments() {
@@ -73,7 +75,40 @@ function addComment() {
 }
 
 function updateComment(commentId) {
-    alert('Not implemented');
+    insertInput(commentId);
+    document.getElementById('update').style.visibility = 'visible';
+    document.getElementById('comment-update-button').addEventListener('click', () => {
+        var selectRestaurant = document.getElementById('comment-restaurant-update');
+        var restaurantId = selectRestaurant.options[selectRestaurant.selectedIndex].value;
+
+        var comment = {
+            restaurant_id: restaurantId,
+            rate: document.getElementById('comment-rate-update').value,
+            content: document.getElementById('comment-content-update').value,
+        }
+
+        fetch(`http://localhost:8081/admin/comments/${commentId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(comment)
+        })
+            .then(res => res.json())
+                .then(resElement => {
+                    if (resElement.message) {
+                        alert(resElement.message);
+                    }
+                    else {
+                        location.reload();
+                        document.getElementById('update').style.visibility = 'hidden';
+                    }
+                });
+    })
+}
+
+function cancelUpdate() {
+    document.getElementById('update').style.visibility = 'hidden';
 }
 
 function deleteComment(commentId) {
@@ -94,8 +129,8 @@ function deleteComment(commentId) {
         });
 }
 
-function initRestaurantSelect() {
-    var restaurantSelect = document.getElementById("comment-restaurant");
+function initRestaurantSelect(elementId) {
+    var restaurantSelect = document.getElementById(elementId);
 
     fetch('http://localhost:8081/admin/restaurants', {})
         .then(res => res.json())
@@ -107,6 +142,21 @@ function initRestaurantSelect() {
                 restaurantSelect.add(option);
             });
         });
+}
+
+function insertInput(commentId) {
+    fetch(`http://localhost:8081/admin/comments/${commentId}`, {})
+        .then(res => res.json())
+            .then(comment => {
+                if (comment.message) {
+                    alert(comment.message);
+                }
+                else {
+                    document.getElementById('comment-restaurant-update').value = comment.restaurant_id;
+                    document.getElementById('comment-rate-update').value = comment.rate;
+                    document.getElementById('comment-content-update').value = comment.content;
+                }
+            });
 }
 
 function clearInput() {

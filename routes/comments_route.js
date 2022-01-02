@@ -42,9 +42,9 @@ route.post('/comments', (req, res) => {
 route.put('/comments/:id', (req, res) => {
     Comments.findOne({ where: { id: req.params.id }, include: ['user', 'restaurant'] })
         .then(comment => {
+            comment.restaurant_id = req.body.restaurant_id;
             comment.rate = req.body.rate;
             comment.content = req.body.content;
-            comment.likes = req.body.likes;
 
             comment.save()
                 .then(row => res.json(row))

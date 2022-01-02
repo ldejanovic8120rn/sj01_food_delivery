@@ -3,6 +3,7 @@ window.addEventListener('load', init);
 function init() {
     getRestaurants();
     document.getElementById('restaurant-create-button').addEventListener('click', addRestaurant);
+    document.getElementById("restaurant-cancel-button").addEventListener('click', cancelUpdate);
 }
 
 function getRestaurants() {
@@ -69,7 +70,40 @@ function addRestaurant() {
 }
 
 function updateRestaurant(restaurantId) {
-    alert('Not implemented');
+    insertInput(restaurantId);
+    document.getElementById('update').style.visibility = 'visible';
+    document.getElementById('restaurant-update-button').addEventListener('click', () => {
+        var restaurant = {
+            name: document.getElementById('restaurant-name-update').value,
+            kitchen: document.getElementById('restaurant-kitchen-update').value,
+            city: document.getElementById('restaurant-city-update').value,
+            street: document.getElementById('restaurant-street-update').value,
+            phone: document.getElementById('restaurant-phone-update').value,
+            delivery_price: document.getElementById('restaurant-delivery-price-update').value,
+        }
+
+        fetch(`http://localhost:8081/admin/restaurants/${restaurantId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(restaurant)
+        })
+            .then(res => res.json())
+                .then(resElement => {
+                    if (resElement.message) {
+                        alert(resElement.message);
+                    }
+                    else {
+                        location.reload();
+                        document.getElementById('update').style.visibility = 'hidden';
+                    }
+                });
+    })
+}
+
+function cancelUpdate() {
+    document.getElementById('update').style.visibility = 'hidden';
 }
 
 function deleteRestaurant(restaurantId) {
@@ -88,6 +122,24 @@ function deleteRestaurant(restaurantId) {
                 trDelete.parentNode.removeChild(trDelete);
             }
         });
+}
+
+function insertInput(restaurantId) {
+    fetch(`http://localhost:8081/admin/restaurants/${restaurantId}`, {})
+        .then(res => res.json())
+            .then(restaurant => {
+                if (restaurant.message) {
+                    alert(restaurant.message);
+                }
+                else {
+                    document.getElementById('restaurant-name-update').value = restaurant.name;
+                    document.getElementById('restaurant-kitchen-update').value = restaurant.kitchen;
+                    document.getElementById('restaurant-city-update').value = restaurant.city;
+                    document.getElementById('restaurant-street-update').value = restaurant.street;
+                    document.getElementById('restaurant-phone-update').value = restaurant.phone;
+                    document.getElementById('restaurant-delivery-price-update').value = restaurant.delivery_price;
+                }
+            });
 }
 
 function clearInput() {
