@@ -7,6 +7,54 @@ const route = express.Router();
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
+route.post('/login', (req, res) => {
+
+    const validation = Joi.object().keys({
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().alphanum().min(5).max(15).required(),
+    });
+
+    Joi.validate(req.body, validation, (err, result) => {
+        if (err) {
+            res.send({ message: err.details[0].message });
+        }
+        else {
+            Users.findOne({ where: { username: req.body.username, password: req.body.password } })
+                .then(row => res.json(row))
+                .catch(err => res.status(500).json(err));
+        }
+    });
+});
+
+route.post('/register', (req, res) => {
+
+    const validation = Joi.object().keys({
+        first_name: Joi.string().alphanum().min(3).max(10).required(),
+        last_name: Joi.string().alphanum().min(3).max(10).required(),
+        username: Joi.string().alphanum().min(4).max(10).required(),
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().alphanum().min(5).max(15).required()
+    });
+
+    Joi.validate(req.body, validation, (err, result) => {
+        if (err) {
+            res.send({ message: err.details[0].message });
+        }
+        else {
+            Users.create({
+                role: 'CLIENT',
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            })
+                .then(row => res.json(row))
+                .catch(err => res.status(500).json(err));
+        }
+    });
+});
+
 //Get all users
 route.get('/users', (req, res) => {
     Users.findAll()
