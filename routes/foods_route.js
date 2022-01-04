@@ -23,38 +23,70 @@ route.get('/foods/:id', (req, res) => {
 
 //Create food
 route.post('/foods', (req, res) => {
-    Foods.create({
-        restaurant_id: req.body.restaurant_id,
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-        category: req.body.category,
-        portion: req.body.portion
-    })
-        .then(row => {
-            Foods.findOne({ where: { id: row.id }, include: 'restaurant' })
-                .then(food => res.json(food))
+    const validation = Joi.object().keys({
+        restaurant_id: Joi.number().min(1).required(),
+        name: Joi.string().min(3).max(10).required(),
+        price: Joi.number().integer().required(),
+        description: Joi.string().min(1).required(),
+        category: Joi.string().valid('Appetizer', 'Soup', 'Main course', 'Salad', 'Side dish', 'Sauce', 'Desert').required(),
+        portion: Joi.string().valid('Small', 'Medium', 'Big').required(),
+    });
+
+    Joi.validate(req.body, validation, (err, result) => {
+        if (err) {
+            res.send({ message: err.details[0].message });
+        }
+        else {
+            Foods.create({
+                restaurant_id: req.body.restaurant_id,
+                name: req.body.name,
+                price: req.body.price,
+                description: req.body.description,
+                category: req.body.category,
+                portion: req.body.portion
+            })
+                .then(row => {
+                    Foods.findOne({ where: { id: row.id }, include: 'restaurant' })
+                        .then(food => res.json(food))
+                        .catch(err => res.status(500).json(err));
+                })
                 .catch(err => res.status(500).json(err));
-        })
-        .catch(err => res.status(500).json(err));
+        }
+    });
 })
 
 //Update food
 route.put('/foods/:id', (req, res) => {
-    Foods.findOne({ where: { id: req.params.id }, include: 'restaurant' })
-        .then(food => {
-            food.restaurant_id = req.body.restaurant_id;
-            food.name = req.body.name;
-            food.price = req.body.price;
-            food.description = req.body.description;
-            food.category = req.body.category;
-            food.portion = req.body.portion;
+    const validation = Joi.object().keys({
+        restaurant_id: Joi.number().min(1).required(),
+        name: Joi.string().min(3).max(10).required(),
+        price: Joi.number().integer().required(),
+        description: Joi.string().min(1).required(),
+        category: Joi.string().valid('Appetizer', 'Soup', 'Main course', 'Salad', 'Side dish', 'Sauce', 'Desert').required(),
+        portion: Joi.string().valid('Small', 'Medium', 'Big').required(),
+    });
 
-            food.save()
-                .then(row => res.json(row))
+    Joi.validate(req.body, validation, (err, result) => {
+        if (err) {
+            res.send({ message: err.details[0].message });
+        }
+        else {
+            Foods.findOne({ where: { id: req.params.id }, include: 'restaurant' })
+                .then(food => {
+                    food.restaurant_id = req.body.restaurant_id;
+                    food.name = req.body.name;
+                    food.price = req.body.price;
+                    food.description = req.body.description;
+                    food.category = req.body.category;
+                    food.portion = req.body.portion;
+
+                    food.save()
+                        .then(row => res.json(row))
+                        .catch(err => res.status(500).json(err));
+                })
                 .catch(err => res.status(500).json(err));
-        })
-        .catch(err => res.status(500).json(err));
+        }
+    });
 })
 
 //Delete food
