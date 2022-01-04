@@ -1,5 +1,6 @@
 const express = require('express');
 const { sequelize, Users } = require('../models');
+const Joi = require('joi');
 
 const route = express.Router();
 
@@ -22,34 +23,68 @@ route.get('/users/:id', (req, res) => {
 
 //Create user
 route.post('/users', (req, res) => {
-    Users.create({
-        role: req.body.role, 
-        first_name: req.body.first_name, 
-        last_name: req.body.last_name, 
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
+
+    const validation = Joi.object().keys({
+        role: Joi.string().valid('ADMIN', 'MODERATOR').required(),
+        first_name: Joi.string().alphanum().min(3).max(10).required(),
+        last_name: Joi.string().alphanum().min(3).max(10).required(),
+        username: Joi.string().alphanum().min(4).max(10).required(),
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().alphanum().min(5).max(15).required()
+    });
+
+    Joi.validate(req.body, validation, (err, result) => {
+        if (err) {
+            res.send({ message: err.details[0].message });
+        }
+        else {
+            Users.create({
+                role: req.body.role,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            })
+                .then(row => res.json(row))
+                .catch(err => res.status(500).json(err));
+        }
     })
-        .then(row => res.json(row))
-        .catch(err => res.status(500).json(err));
+    
 })
 
 //Update user
 route.put('/users/:id', (req, res) => {
-    Users.findOne({ where: { id: req.params.id } })
-        .then(user => {
-            user.role = req.body.role;
-            user.first_name = req.body.first_name;
-            user.last_name = req.body.last_name;
-            user.username = req.body.username;
-            user.email = req.body.email;
-            user.password = req.body.password;
+    const validation = Joi.object().keys({
+        role: Joi.string().valid('ADMIN', 'MODERATOR').required(),
+        first_name: Joi.string().alphanum().min(3).max(10).required(),
+        last_name: Joi.string().alphanum().min(3).max(10).required(),
+        username: Joi.string().alphanum().min(4).max(10).required(),
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().alphanum().min(5).max(15).required()
+    });
 
-            user.save()
-                .then(row => res.json(row))
-                .catch(err => res.status(500).json(err));
-        })
-        .catch(err => res.status(500).json(err))
+    Joi.validate(req.body, validation, (err, result) => {
+        if (err) {
+            res.send({ message: err.details[0].message });
+        }
+        else {
+            Users.findOne({ where: { id: req.params.id } })
+                .then(user => {
+                    user.role = req.body.role;
+                    user.first_name = req.body.first_name;
+                    user.last_name = req.body.last_name;
+                    user.username = req.body.username;
+                    user.email = req.body.email;
+                    user.password = req.body.password;
+
+                    user.save()
+                        .then(row => res.json(row))
+                        .catch(err => res.status(500).json(err));
+                })
+                .catch(err => res.status(500).json(err))
+        }
+    })
 });
 
 //Delete user

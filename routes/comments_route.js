@@ -1,5 +1,6 @@
 const express = require('express');
 const { sequelize, Comments, Users, Restaurants } = require('../models');
+const Joi = require('joi');
 
 const route = express.Router();
 
