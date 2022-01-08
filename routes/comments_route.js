@@ -1,11 +1,33 @@
 const express = require('express');
 const { sequelize, Comments, Users, Restaurants } = require('../models');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const route = express.Router();
 
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
+
+function authToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token == null) {
+        return res.status(401).json({ message: err });
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({ message: err });
+        }
+
+        req.user = user;
+        next();
+    });
+}
+
+route.use(authToken);
 
 //Get all comments
 route.get('/comments', (req, res) => {
@@ -16,15 +38,19 @@ route.get('/comments', (req, res) => {
 
 //Get comment by id
 route.get('/comments/:id', (req, res) => {
-    Comments.findOne({ where: { id: req.params.id }, include: ['user', 'restaurant'] })
-        .then(row => res.json(row))
-        .catch(err => res.status(500).json(err));
+    if (req.user.role === 'ADMIN' || req.user.role === 'MODERATOR') {
+        Comments.findOne({ where: { id: req.params.id }, include: ['user', 'restaurant'] })
+            .then(row => res.json(row))
+            .catch(err => res.status(500).json(err));
+    }
+    else {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
 })
 
 //Create comment
 route.post('/comments', (req, res) => {
     const validation = Joi.object().keys({
-        user_id: Joi.number().min(1).required(),
         restaurant_id: Joi.number().min(1).required(),
         rate: Joi.number().min(1).max(10).required(),
         content: Joi.string().min(1).required()
@@ -36,7 +62,7 @@ route.post('/comments', (req, res) => {
         }
         else {
             Comments.create({
-                user_id: req.body.user_id,
+                user_id: req.user.id,
                 restaurant_id: req.body.restaurant_id,
                 rate: req.body.rate,
                 content: req.body.content,
@@ -79,6 +105,7 @@ route.put('/comments/:id', (req, res) => {
                 .catch(err => res.status(500).json(err));
         }
     });
+    
 })
 
 //Delete comment

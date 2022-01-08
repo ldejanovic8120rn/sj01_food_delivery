@@ -1,5 +1,8 @@
 window.addEventListener('load', init);
 
+const cookies = document.cookie.split('=');
+const token = cookies[cookies.length - 1];
+
 function init() {
     getUsers();
     document.getElementById('user-create-button').addEventListener('click', addUser);
@@ -7,7 +10,11 @@ function init() {
 }
 
 function getUsers() {
-    fetch('http://localhost:8081/admin/users', {})
+    fetch('http://localhost:8081/admin/users', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(users => {
                 users.forEach(user => {
@@ -44,6 +51,7 @@ function addUser() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(user)
     })
@@ -89,6 +97,7 @@ function updateUser(userId) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(user)
         })
@@ -99,6 +108,7 @@ function updateUser(userId) {
                     }
                     else {
                         location.reload();
+                        document.getElementById('password-update').value = '';
                         document.getElementById('update').style.visibility = 'hidden';                    
                     }
                 });
@@ -107,6 +117,7 @@ function updateUser(userId) {
 }
 
 function cancelUpdate() {
+    document.getElementById('password-update').value = '';
     document.getElementById('update').style.visibility = 'hidden';
 }
 
@@ -115,6 +126,7 @@ function deleteUser(userId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
     })
         .then(res => {
@@ -129,7 +141,11 @@ function deleteUser(userId) {
 }
 
 function insertInput(userId) {
-    fetch(`http://localhost:8081/admin/users/${userId}`, {})
+    fetch(`http://localhost:8081/admin/users/${userId}`, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(user => {
                 if (user.message) {
@@ -141,7 +157,6 @@ function insertInput(userId) {
                     document.getElementById('last-name-update').value = user.last_name;
                     document.getElementById('username-update').value = user.username;
                     document.getElementById('email-update').value = user.email;
-                    document.getElementById('password-update').value = user.password;
                 }
             });
 }

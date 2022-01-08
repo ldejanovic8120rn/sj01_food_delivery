@@ -25,5 +25,5 @@ app.use('/admin', comments);
 
 app.listen({ port: 8081 }, async () => {
     await sequelize.authenticate();
-    console.log('Crud server started!')
+    console.log('Crud server started!');
 });

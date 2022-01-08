@@ -1,5 +1,8 @@
 window.addEventListener('load', init);
 
+const cookies = document.cookie.split('=');
+const token = cookies[cookies.length - 1];
+
 function init() {
     initRestaurantSelect('food-restaurant');
     initRestaurantSelect('food-restaurant-update');
@@ -9,7 +12,11 @@ function init() {
 }
 
 function getFoods() {
-    fetch('http://localhost:8081/admin/foods', {})
+    fetch('http://localhost:8081/admin/foods', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(foods => {
                 foods.forEach(food => {
@@ -54,6 +61,7 @@ function addFood() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(food)
     })
@@ -107,6 +115,7 @@ function updateFood(foodId) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(food)
         })
@@ -132,6 +141,7 @@ function deleteFood(foodId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
     })
         .then(res => {
@@ -148,7 +158,11 @@ function deleteFood(foodId) {
 function initRestaurantSelect(elementId) {
     var restaurantSelect = document.getElementById(elementId);
 
-    fetch('http://localhost:8081/admin/restaurants', {})
+    fetch('http://localhost:8081/admin/restaurants', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
         .then(restaurants => {
             restaurants.forEach(restaurant => {
@@ -161,7 +175,11 @@ function initRestaurantSelect(elementId) {
 }
 
 function insertInput(foodId) {
-    fetch(`http://localhost:8081/admin/foods/${foodId}`, {})
+    fetch(`http://localhost:8081/admin/foods/${foodId}`, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(food => {
                 if (food.message) {

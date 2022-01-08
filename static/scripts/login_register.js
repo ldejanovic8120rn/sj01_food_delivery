@@ -14,7 +14,7 @@ function signUp() {
         password: document.getElementById('password').value,
     }
 
-    fetch('http://localhost:8081/admin/register', {
+    fetch('http://localhost:8082/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -28,7 +28,8 @@ function signUp() {
             }
             else {
                 alert('Successfully registered');
-                location.reload();
+                document.cookie = `token=${resUser.token};SameSite=Lax`;
+                window.location.href = 'index.html';
             }
         });
 }
@@ -39,7 +40,7 @@ function login() {
         password: document.getElementById('password-login').value,
     }
 
-    fetch('http://localhost:8081/admin/login', {
+    fetch('http://localhost:8082/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -52,6 +53,7 @@ function login() {
                     alert(resUser.message);
                 }
                 else {
+                    document.cookie = `token=${resUser.token};SameSite=Lax`;
                     window.location.href = 'index.html';
                 }
             });

@@ -1,5 +1,8 @@
 window.addEventListener('load', init);
 
+const cookies = document.cookie.split('=');
+const token = cookies[cookies.length - 1];
+
 function init() {
     initRestaurantSelect('comment-restaurant');
     initRestaurantSelect('comment-restaurant-update');
@@ -9,7 +12,11 @@ function init() {
 }
 
 function getComments() {
-    fetch('http://localhost:8081/admin/comments', {})
+    fetch('http://localhost:8081/admin/comments', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
         .then(comments => {
             comments.forEach(comment => {
@@ -36,7 +43,6 @@ function addComment() {
     var restaurantId = selectRestaurant.options[selectRestaurant.selectedIndex].value;
 
     var comment = {
-        user_id: 1,
         restaurant_id: restaurantId,
         rate: document.getElementById('comment-rate').value,
         content: document.getElementById('comment-content').value,
@@ -46,6 +52,7 @@ function addComment() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(comment)
     })
@@ -91,6 +98,7 @@ function updateComment(commentId) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(comment)
         })
@@ -116,6 +124,7 @@ function deleteComment(commentId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
     })
         .then(res => {
@@ -132,7 +141,11 @@ function deleteComment(commentId) {
 function initRestaurantSelect(elementId) {
     var restaurantSelect = document.getElementById(elementId);
 
-    fetch('http://localhost:8081/admin/restaurants', {})
+    fetch('http://localhost:8081/admin/restaurants', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
         .then(restaurants => {
             restaurants.forEach(restaurant => {
@@ -145,7 +158,11 @@ function initRestaurantSelect(elementId) {
 }
 
 function insertInput(commentId) {
-    fetch(`http://localhost:8081/admin/comments/${commentId}`, {})
+    fetch(`http://localhost:8081/admin/comments/${commentId}`, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(comment => {
                 if (comment.message) {

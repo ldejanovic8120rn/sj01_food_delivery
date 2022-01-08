@@ -1,5 +1,8 @@
 window.addEventListener('load', init);
 
+const cookies = document.cookie.split('=');
+const token = cookies[cookies.length - 1];
+
 function init() {
     getRestaurants();
     document.getElementById('restaurant-create-button').addEventListener('click', addRestaurant);
@@ -7,7 +10,11 @@ function init() {
 }
 
 function getRestaurants() {
-    fetch('http://localhost:8081/admin/restaurants', {})
+    fetch('http://localhost:8081/admin/restaurants', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(restaurants => {
                 restaurants.forEach(restaurant => {
@@ -42,6 +49,7 @@ function addRestaurant() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(restaurant)
     })
@@ -86,6 +94,7 @@ function updateRestaurant(restaurantId) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(restaurant)
         })
@@ -111,6 +120,7 @@ function deleteRestaurant(restaurantId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
     })
         .then(res => {
@@ -125,7 +135,11 @@ function deleteRestaurant(restaurantId) {
 }
 
 function insertInput(restaurantId) {
-    fetch(`http://localhost:8081/admin/restaurants/${restaurantId}`, {})
+    fetch(`http://localhost:8081/admin/restaurants/${restaurantId}`, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
             .then(restaurant => {
                 if (restaurant.message) {
