@@ -39,3 +39,9 @@ button:hover{
 	/*background: #6d44b8;*/
     background: #3d9167;
 }
+#logut-button{
+	position: absolute;
+  	left: 30px;
+  	top: 10px;
+	width: 150px;
+}

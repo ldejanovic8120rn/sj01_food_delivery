@@ -62,7 +62,7 @@ app.get('/restaurants', authToken, (req, res) => {
 });
 
 app.get('/foods', authToken, (req, res) => {
-    if (req.user.role === 'ADMIN' || req.user.role === 'MODERATOR') {
+    if (req.user.role === 'ADMIN' || req.user.role === 'MODERATOR' || req.user.role === 'CLIENT') {
         res.sendFile('foods.html', { root: './static' });
     }
     else {
@@ -71,7 +71,7 @@ app.get('/foods', authToken, (req, res) => {
 });
 
 app.get('/comments', authToken, (req, res) => {
-    if (req.user.role === 'ADMIN' || req.user.role === 'MODERATOR') {
+    if (req.user.role === 'ADMIN' || req.user.role === 'MODERATOR' || req.user.role === 'CLIENT') {
         res.sendFile('comments.html', { root: './static' });
     }
     else {
