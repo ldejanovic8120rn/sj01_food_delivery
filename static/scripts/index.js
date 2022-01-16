@@ -11,7 +11,7 @@ function init() {
     })
 
     document.getElementById('restaurant-button').addEventListener('click', e => {
-        window.location.href = '/restaurants';
+        window.location.href = 'restaurants.html';
     })
 
     document.getElementById('food-button').addEventListener('click', e => {

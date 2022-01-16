@@ -39,6 +39,9 @@ function getFoods() {
 }
 
 function addFood() {
+    if (checkInput() === false)
+        return;
+
     var selectRestaurant = document.getElementById('food-restaurant');
     var restaurantId = selectRestaurant.options[selectRestaurant.selectedIndex].value;
 
@@ -194,6 +197,20 @@ function insertInput(foodId) {
                     document.getElementById('food-portion-update').value = food.portion.toLowerCase();
                 }
             });
+}
+
+function checkInput() {
+    if (document.getElementById('food-name').value.length < 3 || document.getElementById('food-name').value > 10) {
+        alert('Food name must have min 3 and max 10 characters');
+        return false;
+    }
+
+    if (document.getElementById('food-description').value.length < 1) {
+        alert('Description must have min 1 character');
+        return false;
+    }
+
+    return true;
 }
 
 function clearInput() {

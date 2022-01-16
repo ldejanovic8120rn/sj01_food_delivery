@@ -36,6 +36,9 @@ function getRestaurants() {
 }
 
 function addRestaurant() {
+    if (checkInput() === false)
+        return;
+
     var restaurant = {
         name: document.getElementById('restaurant-name').value,
         kitchen: document.getElementById('restaurant-kitchen').value,
@@ -154,6 +157,30 @@ function insertInput(restaurantId) {
                     document.getElementById('restaurant-delivery-price-update').value = restaurant.delivery_price;
                 }
             });
+}
+
+function checkInput() {
+    if (document.getElementById('restaurant-name').value.length < 3 || document.getElementById('restaurant-name').value > 10) {
+        alert('Name must have min 3 and max 10 characters');
+        return false;
+    }
+
+    if (document.getElementById('restaurant-kitchen').value.length < 3 || document.getElementById('restaurant-kitchen').value > 20) {
+        alert('Kitchen must have min 3 and max 20 characters');
+        return false;
+    }
+
+    if (document.getElementById('restaurant-city').value.length < 2 || document.getElementById('restaurant-city').value > 20) {
+        alert('City must have min 2 and max 20 characters');
+        return false;
+    }
+
+    if (document.getElementById('restaurant-street').value.length < 5 || document.getElementById('restaurant-street').value > 30) {
+        alert('Street must have min 5 and max 30 characters');
+        return false;
+    }
+
+    return true;
 }
 
 function clearInput() {

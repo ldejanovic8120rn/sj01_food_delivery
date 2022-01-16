@@ -95,7 +95,7 @@ route.put('/users/:id', (req, res) => {
         const validation = Joi.object().keys({
             role: Joi.string().valid('ADMIN', 'MODERATOR').required(),
             first_name: Joi.string().alphanum().min(3).max(10).required(),
-            last_name: Joi.string().alphanum().min(3).max(10).required(),
+            last_name: Joi.string().alphanum().min(3).max(15).required(),
             username: Joi.string().alphanum().min(4).max(10).required(),
             email: Joi.string().trim().email().required(),
             password: Joi.string().alphanum().min(5).max(15).allow(null).allow('').required(),

@@ -35,6 +35,9 @@ function getUsers() {
 }
 
 function addUser() {
+    if(checkInput() === false)
+        return;
+
     var selectRole = document.getElementById('role');
     var role = selectRole.options[selectRole.selectedIndex].text;
 
@@ -159,6 +162,25 @@ function insertInput(userId) {
                     document.getElementById('email-update').value = user.email;
                 }
             });
+}
+
+function checkInput() {
+    if (document.getElementById('first-name').value.length < 3 || document.getElementById('first-name').value > 10) {
+        alert('First name must have min 3 and max 10 characters');
+        return false;
+    }
+
+    if (document.getElementById('last-name').value.length < 3 || document.getElementById('last-name').value > 15) {
+        alert('Last name must have min 3 and max 15 characters');
+        return false;
+    }
+
+    if (document.getElementById('username').value.length < 4 || document.getElementById('username').value > 10) {
+        alert('Username must have min 3 and max 10 characters');
+        return false;
+    }
+
+    return true;
 }
 
 function clearInput() {
