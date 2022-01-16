@@ -39,6 +39,9 @@ function getComments() {
 }
 
 function addComment() {
+    if (checkInput() === false)
+        return;
+        
     var selectRestaurant = document.getElementById('comment-restaurant');
     var restaurantId = selectRestaurant.options[selectRestaurant.selectedIndex].value;
 
@@ -174,6 +177,15 @@ function insertInput(commentId) {
                     document.getElementById('comment-content-update').value = comment.content;
                 }
             });
+}
+
+function checkInput() {
+    if (document.getElementById('comment-content').value.length < 1) {
+        alert('Content must have min 1 character');
+        return false;
+    }
+
+    return true;
 }
 
 function clearInput() {
