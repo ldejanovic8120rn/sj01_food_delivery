@@ -39,6 +39,10 @@ function authToken(req, res, next) {
     });
 }
 
+app.get('/', authToken, (req, res) => {
+    res.sendFile('index.html', { root: './static' });
+});
+
 app.get('/login', (req, res) => {
     res.sendFile('login_register.html', { root: './static' });
 });
